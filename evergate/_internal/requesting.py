@@ -39,6 +39,8 @@ def post_to_esi(path: str,
   """
   Sends POST request to ESI.
   """
+  query, headers, body = query or {}, headers or {}, body or {}
+
   query.setdefault('datasource', DATASOURCE)
 
   if token is not None:
@@ -74,6 +76,8 @@ def get_from_esi(path: str,
   """
   Sends GET request to ESI.
   """
+
+  query, headers = query or {}, headers or {}
 
   query.setdefault('datasource', DATASOURCE)
 
@@ -121,6 +125,7 @@ def delete_from_esi(path: str,
   """
   Sends DELETE request to ESI.
   """
+  query, headers = query or {}, headers or {}
 
   query.setdefault('datasource', DATASOURCE)
 
@@ -156,6 +161,7 @@ def put_to_esi(path: str,
   """
   Sends PUT request to ESI.
   """
+  query, headers, body = query or {}, headers or {}, body or {}
 
   query.setdefault('datasource', DATASOURCE)
 
