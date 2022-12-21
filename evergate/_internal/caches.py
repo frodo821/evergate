@@ -47,7 +47,7 @@ class CacheStorage:
     """
     self._cache.pop((url, *parameters), None)
 
-  def __getitem__(self, *key) -> Optional[dict]:
+  def __getitem__(self, key: tuple) -> Optional[dict]:
     """
     Returns dict object for given URL and headers.
     """
@@ -58,14 +58,14 @@ class CacheStorage:
 
     return cache.value
 
-  def __setitem__(self, *key, value: tuple[str, dict]) -> None:
+  def __setitem__(self, key: tuple, value: tuple[str, dict]) -> None:
     """
     Create a new cache of dict object for given URL and headers.
     """
 
     self._cache[key] = Cache(*value)
 
-  def __contains__(self, *key) -> bool:
+  def __contains__(self, key: tuple) -> bool:
     """
     Returns True if cache exists for given URL and headers.
     """
@@ -76,4 +76,4 @@ class CacheStorage:
     """
     Returns tuple representation of dict.
     """
-    return (hash(dumps(value, sort_keys=True)), *dict.keys())
+    return (hash(dumps(value, sort_keys=True)), *value.keys())

@@ -84,7 +84,9 @@ def get_from_esi(path: str,
   if token is not None:
     headers.setdefault('Authorization', f'Bearer {token}')
 
-  etag = cache.find_etag(path, cache.dict_as_tuple({'q': query, 'h': headers}))
+  cache_key = cache.dict_as_tuple({'q': query, 'h': headers})
+
+  etag = cache.find_etag(path, cache_key)
 
   if etag is not None:
     headers['If-None-Match'] = etag
@@ -92,7 +94,7 @@ def get_from_esi(path: str,
   req = get(f"{HOST_URL}{path}{format_query(query)}", headers=headers)
 
   if req.status_code == 304:
-    return cache[path, cache.dict_as_tuple({'q': query, 'h': headers})]
+    return cache[path, cache_key]
 
   data = req.json()
 
@@ -110,10 +112,7 @@ def get_from_esi(path: str,
   if req.status_code != 200:
     raise RuntimeError(f"ESI returned {req.status_code}: {data['error']}")
 
-  cache[path, cache.dict_as_tuple({
-      'q': query,
-      'h': headers
-  })] = (req.headers['ETag'], data)
+  cache[path, cache_key] = (req.headers['ETag'], data)
 
   return data
 
