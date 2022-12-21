@@ -18,8 +18,8 @@ def add_token(character_name: str,
   ts = TokenStorage()
   ts.add_token(character_name, token)
 
-  if set_as_default or TokenStorage.get_default_character_name() is None:
-    TokenStorage.set_default_character_name(character_name)
+  if set_as_default or TokenStorage().get_default_character_name() is None:
+    TokenStorage().set_default_character_name(character_name)
 
 
 def expire_token(character_name: str) -> None:
