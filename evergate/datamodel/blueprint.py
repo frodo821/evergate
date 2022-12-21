@@ -1,7 +1,7 @@
 """
 """
 from pydantic import BaseModel, Field
-from evergate.datamodel.item import LocationFlag
+from evergate.datamodel.asset import BlueprintCapableLocationFlag
 
 
 class Blueprint(BaseModel):
@@ -19,7 +19,7 @@ class Blueprint(BaseModel):
   """
 
   item_id: int = Field(description="Unique ID for this item.")
-  location_flag: LocationFlag = Field(
+  location_flag: BlueprintCapableLocationFlag = Field(
       description="indicates what type container of location_id is.")
   location_id: int = Field(description=(
       "References a station, a ship or an item_id if this blueprint is located within a container. "
