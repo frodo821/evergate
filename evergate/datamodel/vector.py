@@ -2,8 +2,7 @@
 """
 
 
-from dataclasses import Field
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Vector3d(BaseModel):
